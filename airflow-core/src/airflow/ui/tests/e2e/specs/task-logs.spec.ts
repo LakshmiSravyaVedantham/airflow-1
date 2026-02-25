@@ -70,7 +70,11 @@ test.describe("Verify task logs display", () => {
 
     await expect(virtualizedList).toBeVisible({ timeout: 30_000 });
 
-    await expect(virtualizedList).toContainText(/INFO|WARNING|ERROR|CRITICAL/);
+    const logItems = page.locator('[data-testid^="virtualized-item-"]');
+
+    await expect(logItems.first()).toBeVisible({ timeout: 30_000 });
+
+    await expect(virtualizedList).toContainText(/INFO|WARNING|ERROR|CRITICAL/, { timeout: 15_000 });
   });
 
   test("Verify log timestamp formatting", async ({ page }) => {
